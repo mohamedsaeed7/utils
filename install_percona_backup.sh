@@ -13,4 +13,4 @@ echo "Update apt";
 apt update
 
 echo "Install Percona XtraBackup";
-apt install percona-xtrabackup-80
+apt install percona-xtrabackup-80 -y
