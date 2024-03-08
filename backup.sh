@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source .env
+
 # Function to display usage information
 usage() {
     echo "Usage: $0 -d <database_name> -h <host> -u <username> -p <password> -t <target_directory>"
