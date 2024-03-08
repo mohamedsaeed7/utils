@@ -76,6 +76,8 @@ after_size=$(du -sh "./$target_dir/$current_date.tar.gz" | awk '{print $1}')
 upload_start_time=$(date +%s)
 
 # Upload the tar file to S3
+export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 aws s3 cp "./$target_dir/$current_date.tar.gz" $AWS_BUCKET
 
 # Record s3 upload end time
