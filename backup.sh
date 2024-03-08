@@ -74,7 +74,7 @@ after_size=$(du -sh "./$target_dir/$current_date.tar.gz" | awk '{print $1}')
 upload_start_time=$(date +%s)
 
 # Upload the tar file to S3
-aws s3 cp "./$target_dir/$current_date.tar.gz" s3://my-bucket/
+aws s3 cp "./$target_dir/$current_date.tar.gz" $AWS_BUCKET
 
 # Record s3 upload end time
 upload_end_time=$(date +%s)
