@@ -1,2 +1,4 @@
-*.deb
+.env
+
+*.deb*
 backups

@@ -70,14 +70,25 @@ compress_end_time=$(date +%s)
 # Get directory size after compression
 after_size=$(du -sh "./$target_dir/$current_date.tar.gz" | awk '{print $1}')
 
+# Record s3 upload start time
+upload_start_time=$(date +%s)
+
+# Upload the tar file to S3
+aws s3 cp "./$target_dir/$current_date.tar.gz" s3://my-bucket/
+
+# Record s3 upload end time
+upload_end_time=$(date +%s)
+
 # Record the end time
 end_time=$(date +%s)
 
 # Calculate and display the time taken
 elapsed_time_backup=$((backup_end_time - backup_start_time))
+total_upload_time=$((upload_end_time - upload_start_time))
 total_elapsed_time=$((end_time - start_time))
 
 echo "Total size before compression: $before_size"
 echo "Total size after compression: $after_size"
+echo "Time taken for upload: $total_upload_time seconds"
 echo "Time taken for backup: $elapsed_time_backup seconds"
 echo "Total time taken: $total_elapsed_time seconds"
