@@ -2,7 +2,7 @@
 
 # Function to display usage information
 usage() {
-    echo "Usage: $0 -d <database_name> -u <username> -p <password> -t <target_directory>"
+    echo "Usage: $0 -d <database_name> -h <host> -u <username> -p <password> -t <target_directory>"
     exit 1
 }
 
@@ -10,8 +10,9 @@ usage() {
 current_date=$(date +"%Y%m%d_%H%M%S")
 
 # Parsing command line options
-while getopts ":d:u:p:t:" opt; do
+while getopts ":d:h:u:p:t:" opt; do
     case $opt in
+        h) host="$OPTARG" ;;
         d) database="$OPTARG" ;;
         u) username="$OPTARG" ;;
         p) password="$OPTARG" ;;
@@ -24,12 +25,12 @@ while getopts ":d:u:p:t:" opt; do
 done
 
 # Check if mandatory options are provided
-if [ -z "$database" ] || [ -z "$username" ] || [ -z "$password" ] || [ -z "$target_dir" ]; then
+if [ -z "$host" ] || [ -z "$database" ] || [ -z "$username" ] || [ -z "$password" ] || [ -z "$target_dir" ]; then
     usage
 fi
 
 # Check if the database exists
-if ! mysql -u "$username" -p"$password" -e "use $database" 2>/dev/null; then
+if ! mysql -h "$host" -u "$username" -p"$password" -e "use $database" 2>/dev/null; then
     echo "Database does not exist"
     exit;
 fi
@@ -54,7 +55,7 @@ mkdir -p "$backup_dir"
 
 # Record backup start time
 backup_start_time=$(date +%s)
-sudo xtrabackup --databases="$database" --backup -u"$username" -p"$password" --target-dir="$backup_dir"
+sudo xtrabackup --databases="$database" --backup -H "$host" -u"$username" -p"$password" --target-dir="$backup_dir"
 backup_end_time=$(date +%s)
 
 # Get directory size before compression
