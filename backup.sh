@@ -84,11 +84,13 @@ end_time=$(date +%s)
 
 # Calculate and display the time taken
 elapsed_time_backup=$((backup_end_time - backup_start_time))
+total_compress_time=$((compress_end_time - compress_start_time))    
 total_upload_time=$((upload_end_time - upload_start_time))
 total_elapsed_time=$((end_time - start_time))
 
 echo "Total size before compression: $before_size"
 echo "Total size after compression: $after_size"
+echo "Time taken for compression: $total_compress_time seconds"
 echo "Time taken for upload: $total_upload_time seconds"
 echo "Time taken for backup: $elapsed_time_backup seconds"
 echo "Total time taken: $total_elapsed_time seconds"
