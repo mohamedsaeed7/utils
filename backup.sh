@@ -31,12 +31,6 @@ if [ -z "$host" ] || [ -z "$database" ] || [ -z "$username" ] || [ -z "$password
     usage
 fi
 
-# Check if the database exists
-if ! mysql -h "$host" -u "$username" -p"$password" -e "use $database" 2>/dev/null; then
-    echo "Database does not exist"
-    # exit;
-fi
-
 # Record the start time
 start_time=$(date +%s)
 
@@ -78,7 +72,7 @@ upload_start_time=$(date +%s)
 # Upload the tar file to S3
 export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
 export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-aws s3 cp "./$target_dir/$current_date.tar.gz" $AWS_BUCKET
+aws s3 cp "./$target_dir/$current_date.tar.gz" $AWS_BUCKET/daily_database_backup
 
 # Record s3 upload end time
 upload_end_time=$(date +%s)
