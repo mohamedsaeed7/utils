@@ -34,7 +34,7 @@ fi
 # Check if the database exists
 if ! mysql -h "$host" -u "$username" -p"$password" -e "use $database" 2>/dev/null; then
     echo "Database does not exist"
-    exit;
+    # exit;
 fi
 
 # Record the start time
@@ -82,6 +82,9 @@ aws s3 cp "./$target_dir/$current_date.tar.gz" $AWS_BUCKET
 
 # Record s3 upload end time
 upload_end_time=$(date +%s)
+
+# Remove backups folder after upload
+rm -rf $target_dir
 
 # Record the end time
 end_time=$(date +%s)
