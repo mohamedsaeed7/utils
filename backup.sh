@@ -72,7 +72,7 @@ upload_start_time=$(date +%s)
 # Upload the tar file to S3
 export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
 export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-aws s3 cp "./$target_dir/$current_date.tar.gz" $AWS_BUCKET/daily_database_backup
+aws s3 cp "./$target_dir/$current_date.tar.gz" $AWS_BUCKET/daily_database_backup/
 
 # Record s3 upload end time
 upload_end_time=$(date +%s)
